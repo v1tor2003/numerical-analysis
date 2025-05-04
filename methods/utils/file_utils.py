@@ -19,6 +19,15 @@ def save_iter(iter_str, out_path):
     with open(out_path, "a") as file:
         file.write(iter_str)
 
+def save_results(out_path, results):
+    """Saves the results to a file."""
+    if(out_path == None):
+        raise ValueError("Output path must be specified.")
+
+    with open(out_path, 'a') as file:
+        for result in results:
+            file.write(f"{result}\n")
+
 def read_function(in_path):
     """Reads a function from a file and returns it as a callable."""
     if(in_path == None):
@@ -37,11 +46,17 @@ def read_function(in_path):
 
     return func, a, b, tol
 
-def save_results(out_path, results):
-    """Saves the results to a file."""
-    if(out_path == None):
-        raise ValueError("Output path must be specified.")
-
-    with open(out_path, 'a') as file:
-        for result in results:
-            file.write(f"{result}\n")
+def read_matrix(in_path):
+    """Reads a matrix from a file."""
+    if(in_path == None):
+        raise ValueError("Input path must be specified.")
+    
+    with open(in_path, 'r') as file:
+        lines = file.readlines()
+    
+    matrix = []
+    for line in lines:
+        row = list(map(float, line.split()))
+        matrix.append(row)
+    
+    return matrix
