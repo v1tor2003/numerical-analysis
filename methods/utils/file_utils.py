@@ -60,3 +60,27 @@ def read_matrix(in_path):
         matrix.append(row)
     
     return matrix
+
+def read_matrix_with_tol(in_path):
+    """Reads a matrix from a file with tolerance as its first line."""
+    if(in_path == None):
+        raise ValueError("Input path must be specified.")
+    
+    with open(in_path, 'r') as file:
+        lines = file.readlines()
+
+    if not lines:
+        raise ValueError("File is empty.")
+    
+    try:
+        tol = float(lines[0].strip())
+        lines = lines[1:]
+    except ValueError:
+        raise ValueError("First line must be a float representing the tolerance.")
+
+    matrix = []
+    for line in lines:
+        row = list(map(float, line.split()))
+        matrix.append(row)
+    
+    return tol, matrix

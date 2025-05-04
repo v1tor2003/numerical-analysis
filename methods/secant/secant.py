@@ -6,7 +6,7 @@ INPUT_PATH = "secant/input.txt"
 
 def secant_method(func, a, b, tol=1e-5, out_path=OUTPUT_PATH):
     create_out_header(
-        "xn\t\t\t\t\tf(xn)\n"
+        "x_new\t\t\t\tf(x_new)\n"
         f"{a:6f}\t\t\t{func(a):6f}\n",
         out_path
     )
