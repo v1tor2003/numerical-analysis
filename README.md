@@ -35,7 +35,7 @@ Cada método é executado a partir de arquivos de entrada (`input.txt`) e gera r
 ### Estrutura do Projeto
 
 ```
-/<raiz>
+/methods
 │
 ├── utils/
 │   └── file_utils.py        # Funções de leitura e escrita reutilizáveis

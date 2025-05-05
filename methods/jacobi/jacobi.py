@@ -5,6 +5,15 @@ INPUT_PATH = "jacobi/input.txt"
 OUTPUT_PATH = "jacobi/result.txt"
 
 def jacobi_method(matrix, tol=1e-5, max_iter=100, out_path=OUTPUT_PATH):
+    """
+        Jacobi method for solving a system of linear equations.
+        Args:
+            matrix (list of list of floats): Coefficient matrix augmented with the constants.
+            tol (float): Tolerance for convergence.
+            max_iter (int): Maximum number of iterations.
+            out_path (str): Path to save the output results.
+    """
+   
     n = len(matrix)
     A = [row[:-1] for row in matrix]
     b = [row[-1] for row in matrix]

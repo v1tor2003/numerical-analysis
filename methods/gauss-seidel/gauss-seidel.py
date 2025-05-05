@@ -5,6 +5,15 @@ OUTPUT_PATH = "gauss-seidel/result.txt"
 INPUT_PATH = "gauss-seidel/input.txt"
 
 def gauss_seidel_method(matrix, tol=1e-5, max_iter=100, out_path=OUTPUT_PATH):
+    """
+        Gauss-Seidel method for solving a system of linear equations.
+        Args:
+            matrix (list of list of floats): Coefficient matrix augmented with the constants.
+            tol (float): Tolerance for convergence.
+            max_iter (int): Maximum number of iterations.
+            out_path (str): Path to save the output results.
+    """
+   
     n = len(matrix)
     A = [row[:-1] for row in matrix]
     b = [row[-1] for row in matrix]

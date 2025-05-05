@@ -5,6 +5,15 @@ OUTPUT_PATH = "gauss-jordan/result.txt"
 INPUT_PATH = "gauss-jordan/input.txt"
 
 def gauss_jordan(matrix, tol=1e-5, out_path=OUTPUT_PATH):
+    """ 
+        Solves a system of linear equations using the Gauss-Jordan elimination method.
+        
+        Args:
+            matrix (list of list of float): The augmented matrix representing the system of equations.
+            tol (float): Tolerance for pivoting.
+            out_path (str): Path to save the output results. 
+    """
+    
     n = len(matrix)
     m = len(matrix[0]) 
 
