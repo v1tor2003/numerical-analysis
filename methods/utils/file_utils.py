@@ -42,8 +42,9 @@ def read_function(in_path):
     a = float(a_str.strip())
     b = float(b_str.strip())
 
-    tol = float(lines[2].strip())
-
+    tol = float(lines[2].strip()) if len(lines) > 2 else None
+    if tol is None:
+        return func, a, b
     return func, a, b, tol
 
 def read_matrix(in_path):
@@ -84,3 +85,19 @@ def read_matrix_with_tol(in_path):
         matrix.append(row)
     
     return tol, matrix
+
+def read_vectors(in_path):
+    """Reads vectors from a file."""
+    if(in_path == None):
+        raise ValueError("Input path must be specified.")
+    
+    with open(in_path, 'r') as file:
+        lines = file.readlines()
+    
+    vectors = []
+    for line in lines:
+        vector = list(map(float, line.split()))
+        vectors.append(vector)
+    
+    return vectors
+
