@@ -1,8 +1,8 @@
 import math
 from methods.utils.file_utils import save_iter, create_out_header, save_results, compute_max_iterations
 
-INPUT_PATH = "methods/part1/newton-raphson/input.txt"
-OUTPUT_PATH = "methods/part1/newton-raphson/result.txt"
+INPUT_PATH = "methods/part1/newton_raphson/input.txt"
+OUTPUT_PATH = "methods/part1/newton_raphson/result.txt"
 
 
 def read_function(in_path):

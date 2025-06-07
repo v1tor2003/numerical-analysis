@@ -1,8 +1,8 @@
 import math, sys
 from methods.utils.file_utils import save_iter, create_out_header, read_matrix_with_tol, save_results
 
-INPUT_PATH = "methods/part1/gauss-seidel/input.txt"
-OUTPUT_PATH = "methods/part1/gauss-seidel/result.txt"
+INPUT_PATH = "methods/part1/gauss_seidel/input.txt"
+OUTPUT_PATH = "methods/part1/gauss_seidel/result.txt"
 
 def gauss_seidel_method(matrix, tol=1e-5, max_iter=100, out_path=OUTPUT_PATH):
     """

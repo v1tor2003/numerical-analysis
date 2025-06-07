@@ -1,8 +1,8 @@
 import math
 from methods.utils.file_utils import save_iter, create_out_header, read_matrix, save_results, compute_max_iterations
 
-INPUT_PATH = "methods/part1/gauss-elimination/input.txt"
-OUTPUT_PATH = "methods/part1/gauss-elimination/result.txt"
+INPUT_PATH = "methods/part1/gauss_elimination/input.txt"
+OUTPUT_PATH = "methods/part1/gauss_elimination/result.txt"
 
 def formatted_solution(solution):
     """
@@ -36,25 +36,27 @@ def gauss_elimination(matrix):
     n = len(matrix)
     m = len(matrix[0])
 
-    # Forward elimination
     for i in range(n):
-        # Find the pivot element
         pivot = matrix[i][i]
 
-        # If the pivot is zero, swap with a non-zero row below
+        # If the pivot is zero, try to swap with a non-zero row
         if pivot == 0:
             for k in range(i + 1, n):
                 if matrix[k][i] != 0:
                     matrix[i], matrix[k] = matrix[k], matrix[i]
+                    pivot = matrix[i][i]  # update pivot!
                     break
+            else:
+                raise ZeroDivisionError(f"Cannot eliminate: zero pivot at row {i}")
 
-        # Eliminate the entries below the pivot
+        # Eliminate below
         for j in range(i + 1, n):
             factor = matrix[j][i] / pivot
             for k in range(i, m):
                 matrix[j][k] -= factor * matrix[i][k]
 
     return matrix
+
 
 if __name__ == "__main__":
     matrix = read_matrix(INPUT_PATH)

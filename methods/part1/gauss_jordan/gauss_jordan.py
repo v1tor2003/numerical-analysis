@@ -1,8 +1,8 @@
 import math, sys
 from methods.utils.file_utils import save_iter, create_out_header, read_matrix_with_tol, save_results
 
-INPUT_PATH = "methods/part1/gauss-jordan/input.txt"
-OUTPUT_PATH = "methods/part1/gauss-jordan/result.txt"
+INPUT_PATH = "methods/part1/gauss_jordan/input.txt"
+OUTPUT_PATH = "methods/part1/gauss_jordan/result.txt"
 
 def gauss_jordan(matrix, tol=1e-5, out_path=OUTPUT_PATH):
     """ 

@@ -1,8 +1,8 @@
 import math
-from methods.utils.file_utils import save_iter, create_out_header, read_matrix, save_results
+from methods.utils.file_utils import create_out_header, read_matrix, save_results
 
-INPUT_PATH = "methods/part1/lu-factorization/input.txt"
-OUTPUT_PATH = "methods/part1/lu-factorization/result.txt"
+INPUT_PATH = "methods/part1/lu_factorization/input.txt"
+OUTPUT_PATH = "methods/part1/lu_factorization/result.txt"
 
 def forward_substitution(L, b):
     """Solve Ly = b using forward substitution."""
