@@ -7,7 +7,7 @@ OUTPUT_PATH = "methods/part2/simpson1by3/output.txt"
 
 x = symbols("x")
 
-def simpson1by3(func, a, b, n):
+def simpson1by3(func, a, b, n=100):
 	h = (b - a) / (2 * n)
 	xi = intervals(a, b, h)
 	I = func.subs(x, a) + func.subs(x, b)

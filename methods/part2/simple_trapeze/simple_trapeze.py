@@ -8,7 +8,7 @@ OUTPUT_PATH = "methods/part2/simple_trapeze/output.txt"
 x = symbols("x")
 
 def simple_trapeze_method(a, b, func):
-    result = (a - b) * ((func.subs(x, a) + func.subs(x, b)) / 2)
+    result = abs(a - b) * ((func.subs(x, a) + func.subs(x, b)) / 2) # (a - b) was fixed to (b - a)
     return result
 
 def main():

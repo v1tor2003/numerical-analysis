@@ -1,71 +1,116 @@
-## Projeto: Métodos Numéricos — Resolução de Equações e Sistemas Lineares
+## Project: Numerical Methods — Solving Equations, Linear Systems and Interpolation
 
-### Descrição
+### Description
 
-Este projeto reúne a implementação de diversos métodos numéricos clássicos para resolução de equações não lineares e sistemas lineares. Os algoritmos foram desenvolvidos em Python com foco em modularidade, reutilização de componentes e geração automática de relatórios com registro das iterações.
+This project gathers the implementation of several classical numerical methods, organized into two main parts:
 
-Cada método é executado a partir de arquivos de entrada (`input.txt`) e gera relatórios detalhados em arquivos de saída (`result.txt`). O projeto é organizado por módulos, com reutilização de funções auxiliares como leitura de dados, formatação e escrita em disco.
+* **Part 1**: Solving nonlinear equations and linear systems.
+* **Part 2**: Interpolation, numerical derivatives, and integration.
+
+The algorithms are implemented in Python with a focus on modularity, component reuse, and automatic report generation. Each method is executed using input files (`input.txt`), and the results are saved to output files (`result.txt`).
+
+> ⚠️ **Note**: To run any method, the script must be executed from the **root folder** of the project. Additionally, the `sympy` library must be installed.
 
 ---
 
-### Métodos Implementados
+### Implemented Methods
 
-#### Equações Não Lineares (uma variável)
+#### Part 1 — Equations and Linear Systems
 
-* **Bisseção**
-* **Posição Falsa (Regula Falsi)**
+##### Nonlinear Equations (single variable)
+
+* **Bisection**
+* **False Position (Regula Falsi)**
 * **Newton-Raphson**
-* **Secante**
+* **Secant**
 
-#### Sistemas Lineares
+##### Linear Systems
 
-**Métodos Diretos:**
+**Direct Methods:**
 
-* **Eliminação de Gauss**
-* **Fatoração LU (Doolittle)**
+* **Gauss Elimination**
+* **LU Factorization (Doolittle)**
 * **Gauss-Jordan**
 
-**Métodos Iterativos:**
+**Iterative Methods:**
 
 * **Jacobi**
 * **Gauss-Seidel**
 
+#### Part 2 — Interpolation, Derivatives, and Integrals
+
+##### Interpolation and Curve Fitting
+
+* **Lagrange Interpolation**
+* **Newton Interpolation**
+* **Simple Linear Regression**
+* **Least Squares (LSQ)**
+
+##### Numerical Derivatives
+
+* **First-Order Derivative**
+* **Second-Order Derivative**
+* **Richardson Extrapolation**
+
+##### Numerical Integration
+
+* **Simple Trapezoidal Rule**
+* **Multiple Trapezoids**
+* **Simpson’s 1/3 Rule**
+* **Simpson’s 3/8 Rule**
+* **Gaussian Quadrature**
+
 ---
 
-### Estrutura do Projeto
+### Project Structure
 
 ```
 /methods
 │
+├── part1/
+│   ├── bisection/
+│   ├── falseposition/
+│   ├── newton_raphson/
+│   ├── secant/
+│   ├── gauss_elimination/
+│   ├── lu_factorization/
+│   ├── gauss_jordan/
+│   ├── jacobi/
+│   └── gauss_seidel/
+│
+├── part2/
+│   ├── lagrange/
+│   ├── newton/
+│   ├── linear-regression/
+│   ├── mmq/
+│   ├── derivative_1order/
+│   ├── derivative_2order/
+│   ├── richards/
+│   ├── simple_trapeze/
+│   ├── multiple_trapezoids/
+│   ├── simpson1by3/
+│   ├── simpson3by8/
+│   └── gauss/
+│
 ├── utils/
-│   └── file_utils.py        # Funções de leitura e escrita reutilizáveis
-│
-├── bisection/
-│   ├── input.txt
-│   ├── result.txt
-│   └── bisection.py
-│
-├── gauss-elimination/
-├── jacobi/
-├── gauss-jordan/
-├── ... (demais métodos)
+│   └── file_utils.py
 ```
 
 ---
 
-### Formato dos Arquivos de Entrada
+### Input File Format
 
-#### Para métodos de equações (ex: Bisseção, Newton-Raphson):
+#### Nonlinear Equations (e.g., Bisection, Newton-Raphson)
 
 ```
 # input.txt
-1 - (1 + x + x**2 / 2) * math.exp(-x) - 0.1     # Função f(x)
-(x**2 / 2) * math.exp(-x)                       # Derivada f'(x) (se necessário)
-0.1 1.0                                         # Intervalo [a, b]
-0.0001                                          # Tolerância
+1 - (1 + x + x**2 / 2) * math.exp(-x) - 0.1     # f(x)
+(x**2 / 2) * math.exp(-x)                       # f'(x), if needed
+0.1 1.0                                         # Interval [a, b]
+0.0001                                          # Tolerance
 ```
 
-#### Para sistemas lineares (ex: Gauss, LU, Jacobi):
+#### Linear Systems (e.g., Gauss, LU, Jacobi)
 
 ```
 # input.txt
@@ -75,31 +120,44 @@ Cada método é executado a partir de arquivos de entrada (`input.txt`) e gera r
 2 -1 10 -11
 ```
 
-Representa o sistema $Ax = b$, com a última coluna sendo o vetor $b$.
+The last column represents vector \$b\$ in the system \$Ax = b\$.
 
 ---
 
-### Saída dos Relatórios
+### Output Report
 
-Cada método grava no `result.txt`:
+Each `result.txt` file includes:
 
-* Iterações com detalhes (valores intermediários)
-* Formato tabular para métodos iterativos
-* Solução final do sistema ou raiz aproximada
-* Mensagens de erro, se houver
-
----
-
-### Requisitos
-
-* Python 3.10+
-* Nenhuma biblioteca externa necessária
-* Estrutura orientada a texto (sem interface gráfica)
+* Detailed iterations
+* Tabular formatting (for iterative methods)
+* Final root or solution
+* Error messages, if any
 
 ---
 
-### Autor
+### Requirements
 
-Projeto desenvolvido por **Vitor Pires** como parte da disciplina de **DEX000086 - ANÁLISE NUMÉRICA**.
+* **Python 3.10+**
+* **External library:** `sympy`
+  Install it with:
 
+  ```bash
+  pip install sympy
+  ```
+
+---
+
+### Execution
+
+Run the scripts from the **root folder** of the project:
+
+```bash
+python -m methods.part<number>.<method_name>.<methodname>
+```
+
+---
+
+### Author
+
+Project developed by **Vitor Pires** as part of the course **DEX000086 - Numerical Analysis**.
 

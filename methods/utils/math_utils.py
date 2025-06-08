@@ -1,3 +1,5 @@
+import math
+
 def intervals(inicio, fim, h):
 	xi = [inicio]
 	aux = inicio + h
@@ -21,3 +23,11 @@ def matmul(A, B):
             row.append(s)
         result.append(row)
     return result
+
+def vandermonde(X, order):
+    n = len(X)
+    V = [[X[i] ** j for j in range(order + 1)] for i in range(n)]
+    return V
+
+def f(x, func_str):
+    return eval(func_str)
