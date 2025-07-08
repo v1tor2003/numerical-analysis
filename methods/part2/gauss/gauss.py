@@ -7,7 +7,7 @@ OUTPUT_PATH = "methods/part2/gauss/output.txt"
 
 def gauss_quadrature(func, a, b):
     """
-    Calcula a integral definida de func de a até b usando a quadratura de Gauss com 2 pontos.
+    Calculates the definite integral of func from a to b using Gauss quadrature with 2 points.
     """
     x = symbols("x")
 

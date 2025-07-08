@@ -1,52 +1,99 @@
 import math
-from methods.utils.file_utils import save_results, read_function
-from methods.part1.gauss_elimination.gauss_elimination import gauss_elimination, find_substitutions
+from methods.utils.file_utils import save_results, read_fds_params
 
 INPUT_PATH = "methods/part3/finite_differences/input.txt"
 OUTPUT_PATH = "methods/part3/finite_differences/output.txt"
 
-def finite_differences(a, b, alpha, beta, n, f):
-    h = (b - a) / (n + 1)
-    xs = [a + (i + 1) * h for i in range(n)]  # Interior points
+def format_result(results):
+    strs = [f"{item:.6f}\n" if i < len(results) - 1 else f"{item:.6f}" for i, item in enumerate(results)]
+    return "".join(strs)
 
-    # Create matrix A (tridiagonal: 2 on diag, -1 on off-diag)
-    A = [[0.0] * n for _ in range(n)]
-    for i in range(n):
-        A[i][i] = 2.0
-        if i > 0:
-            A[i][i - 1] = -1.0
-        if i < n - 1:
-            A[i][i + 1] = -1.0
+def finite_differences(a, b, x, h, points, Ta):
+    matrix = []
+    b_vec = []
+    aux = 0
+    Dx = x/points
+    
+    for _ in range(points - 1):
+        aux_vec = []
 
-    # Construct RHS vector b with -h^2 * f(x)
-    b_vec = [-f(x) * h**2 for x in xs]
-    b_vec[0] += alpha
-    b_vec[-1] += beta
+        for _ in range(points - 1):
+            aux_vec.append(0)
+        
+        if aux == 0:
+            aux_vec[aux] = (2 + h * Dx**2)
+            aux_vec[aux+1] = -1
+        elif aux == points - 2:
+            aux_vec[aux] = (2 + h * Dx**2)
+            aux_vec[aux-1] = -1
+        else:
+            aux_vec[aux] = (2 + h * Dx**2)
+            aux_vec[aux+1] = -1
+            aux_vec[aux-1] = -1
 
-    # Augmented matrix for Gauss
-    augmented = [A[i] + [b_vec[i]] for i in range(n)]
-    solution = gauss_elimination(augmented)
-    y_inner = find_substitutions(solution)
+        matrix.append(aux_vec)
+        aux+=1
+        
+    b_vec.append(h * (Dx**2) * Ta + a)
 
-    xs_full = [a] + xs + [b]
-    ys_full = [alpha] + y_inner + [beta]
+    for _ in range(points-3):
+        b_vec.append(h * (Dx**2) * Ta)
 
-    return xs_full, ys_full
+    b_vec.append(h * (Dx**2) * Ta + b)
+            
+    A = lu_factorization(matrix)
+    y = lower_triangular(A, b_vec)
+    result = upper_triangular(A, y)
+    
+    return result
+
+def lu_factorization(matriz):
+    n = len(matriz)
+
+    for k in list(range(1,n,1)):
+        for i in list(range(k+1,n+1,1)):
+            m = matriz[i-1][k-1]/matriz[k-1][k-1]
+            matriz[i-1][k-1] = m
+            for j in list(range(k+1,n+1,1)):
+                matriz[i-1][j-1] = matriz[i-1][j-1] - m*matriz[k-1][j-1]
+    
+    return matriz
+
+def lower_triangular(L,b):
+    n = len(b)
+    y = [0]*n
+    
+    for i in list(range(1,n+1,1)):
+        s = 0
+        for j in list(range(1, i,1)):
+            s = s + L[i-1][j-1]*y[j-1]
+
+        y[i-1] = b[i-1] - s
+
+    return y
+
+def upper_triangular(U,b):
+    n =  len(b)
+    x = [0]*n
+    x[n-1] = b[n-1]/U[n-1][n-1]
+
+    for i in list(range(n-1,0,-1)):
+        s = 0
+        for j in list(range(i+1,n+1,1)):
+            s = s + U[i-1][j-1]*x[j-1]
+
+        x[i-1] = (b[i-1]-s)/(U[i-1][i-1])
+
+    return x
 
 def main():
-    func, a, b, n = read_function(INPUT_PATH)
-    alpha = 0.0
-    beta = 1.0
-    fxx = lambda x: eval(func)
+    a, b, x, h, points, Ta = read_fds_params(INPUT_PATH)
 
-    xs, ys = finite_differences(a, b, alpha, beta, int(n), fxx)
+    result = finite_differences(a, b, x, h, points, Ta)
 
-    results = []
-    for x, y in zip(xs, ys):
-        line = f"x = {x:.6f}, y = {y:.6f}"
-        results.append(line)
-
-    save_results(OUTPUT_PATH, results)
+    save_results(OUTPUT_PATH, [f"a = {a:.6f}"])
+    save_results(OUTPUT_PATH, [format_result(result)])
+    save_results(OUTPUT_PATH, [f"b = {b:.6f}"])
 
 if __name__ == "__main__":
     main()

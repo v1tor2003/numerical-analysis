@@ -86,6 +86,24 @@ def read_matrix_with_tol(in_path):
     
     return tol, matrix
 
+def read_fds_params(in_path):
+    """ Reads params for the finite diff and shooting methods from a file."""
+    if(in_path == None):
+        raise ValueError("Input path must be specified.")
+    
+    with open(in_path, 'r') as file:
+        lines = file.readlines()
+
+    a_str, b_str = lines[0].split()
+    a = float(a_str.strip())
+    b = float(b_str.strip())
+    x = float(lines[1].strip())
+    h = float(lines[2].strip()) 
+    points = int(lines[3].strip())
+    Ta = float(lines[4].strip())
+
+    return a, b, x, h, points, Ta
+
 def read_vectors(in_path):
     """Reads vectors from a file."""
     if(in_path == None):
