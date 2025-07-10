@@ -5,26 +5,26 @@ from methods.utils.file_utils import read_fds_params, save_results
 INPUT_PATH = "methods/part3/shooting/input.txt"
 OUTPUT_PATH = "methods/part3/shooting/output.txt"
 
-def resolve_edo(y0, z0, intervalo):
-    resultados = []
-    for t in intervalo:
-        resultados.append([y0, z0])
-        y0, z0 = y0 + z0 * (intervalo[1] - intervalo[0]), z0 + (-2 * z0 - y0 + np.sin(t)) * (intervalo[1] - intervalo[0])
-    return np.array(resultados)
+def resolve_edo(y0, z0, intervals):
+    results = []
+    for t in intervals:
+        results.append([y0, z0])
+        y0, z0 = y0 + z0 * (intervals[1] - intervals[0]), z0 + (-2 * z0 - y0 + np.sin(t)) * (intervals[1] - intervals[0])
+    return np.array(results)
 
-def shooting(a, b, intervalo, n):  
+def shooting(a, b, intervals, n):  
     def func_obj(z0):
-        valores_y = resolve_edo(a, z0, intervalo)
-        return valores_y[-1, 0] - b
+        ys = resolve_edo(a, z0, intervals)
+        return ys[-1, 0] - b
 
-    valores_z0 = np.linspace(a, b, n)
-    for z0 in valores_z0:
+    z0_values = np.linspace(a, b, n)
+    for z0 in z0_values:
         if np.sign(func_obj(z0)) != np.sign(func_obj(a)):
             break
 
-    valores_y = resolve_edo(a, z0, intervalo)
+    ys = resolve_edo(a, z0, intervals)
 
-    return valores_y[:, 0]
+    return ys[:, 0]
 
 def main():
     a, b, x, h, n, _ = read_fds_params(INPUT_PATH)

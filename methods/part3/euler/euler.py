@@ -1,5 +1,6 @@
 import math
-from methods.utils.file_utils import read_equation, save_results
+from methods.utils.file_utils import read_edo_equation, save_results
+from methods.utils.list_utils import format_xy_to_list
 
 INPUT_PATH = "methods/part3/euler/input.txt"
 OUTPUT_PATH = "methods/part3/euler/output.txt"
@@ -20,11 +21,11 @@ def euler(f, x0, y0, h, k):
     return x_list, y_list
 
 def main():
-    equation, x0, y0, h, k = read_equation(INPUT_PATH)
+    equation, x0, y0, h, k = read_edo_equation(INPUT_PATH)
     func = lambda x = 0, y = 0: eval(equation)
     xr, yr = euler(func, x0, y0, h, k)
 
-    results = [f"x{i} = {xr[i]}  ||  y{i} = {yr[i]}" for i in range(len(xr))]
+    results = format_xy_to_list(xr, yr)
     save_results(OUTPUT_PATH, results)
 
 if __name__ == "__main__":

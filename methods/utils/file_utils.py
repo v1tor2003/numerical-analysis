@@ -86,6 +86,26 @@ def read_matrix_with_tol(in_path):
     
     return tol, matrix
 
+def read_edo_equation(in_path):
+    """Reads an equation and its parameters from a file."""
+    if(in_path == None):
+        raise ValueError("Input path must be specified.")
+    
+    with open(in_path, 'r') as file:
+        lines = file.readlines()
+    
+    if len(lines) < 4:
+        raise ValueError("Input file must contain at least 4 lines.")
+
+    equation = lines[0].strip()
+    x0_str, y0_str = lines[1].split()
+    x0 = float(x0_str.strip())
+    y0 = float(y0_str.strip())
+    h = float(lines[2].strip())
+    k = int(lines[3].strip())
+
+    return equation, x0, y0, h, k
+
 def read_fds_params(in_path):
     """ Reads params for the finite diff and shooting methods from a file."""
     if(in_path == None):
